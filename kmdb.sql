@@ -104,14 +104,136 @@
 .headers off
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
--- TODO!
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS castings;
 
 -- Create new tables, according to your domain model
--- TODO!
+CREATE TABLE movies (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  year INTEGER,
+  MPAA TEXT,
+  studio_ID INTEGER
+);
+
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT
+);
+
+CREATE TABLE actors (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  first_name TEXT,
+  last_name TEXT
+);
+
+CREATE TABLE characters (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT 
+);
+
+CREATE TABLE roles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  actor_ID INTEGER,
+  character_ID INTEGER 
+);
+-- - Note: In real life, there is a many to many relationship between actors and characters. However, in the limited assignment data,
+--   each actor only plays one character, although a character could be played by multiple actors (Rachel Dawes).
+-- - Since our goal is to build a movie database, for best practice, the "roles" table above was created to support the many to many relationship,
+--   even though it may not be necessary for the assignment data.
+
+CREATE TABLE castings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  movie_ID INTEGER,
+  role_ID INTEGER 
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
--- TODO!
+INSERT INTO 
+movies (title, year, MPAA, studio_ID)
+VALUES 
+("Batman Begins", 2005, "PG-13", 1), 
+("The Dark Knight", 2008, "PG-13", 1),
+("The Dark Knight Rises", 2012, "PG-13", 1)
+;
+
+INSERT INTO 
+studios (name)
+VALUES 
+("Warner Bros.")
+;
+
+INSERT INTO 
+actors (first_name, last_name)
+VALUES 
+("Christian", "Bale"),
+("Michael", "Caine"),
+("Liam", "Neeson"),
+("Katie", "Holmes"),
+("Gary", "Oldman"),
+("Heath", "Ledger"),
+("Aaron", "Eckhart"),
+("Maggie", "Gyllenhaal"),
+("Tom", "Hardy"),
+("Joseph", "Gordon-Levitt"),
+("Anne", "Hathaway")
+;
+
+INSERT INTO 
+characters (name)
+VALUES 
+("Bruce Wayne"),
+("Alfred"),
+("Ra's Al Ghul"),
+("Rachel Dawes"),
+("Commissioner Gordon"),
+("Joker"),
+("Harvey Dent"),
+("Bane"),
+("John Blake"),
+("Selina Kyle")
+;
+
+INSERT INTO 
+roles (actor_ID, character_ID)
+VALUES 
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 4),
+(9, 8),
+(10, 9),
+(11, 10)
+;
+
+INSERT INTO 
+castings (movie_ID, role_ID)
+VALUES 
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 1),
+(2, 6),
+(2, 7),
+(2, 2),
+(2, 8),
+(3, 1),
+(3, 5),
+(3, 9),
+(3, 10),
+(3, 11)
+;
 
 -- Prints a header for the movies output
 .print "Movies"
