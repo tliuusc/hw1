@@ -141,7 +141,7 @@ CREATE TABLE roles (
   character_ID INTEGER 
 );
 -- - Note: In real life, there is a many to many relationship between actors and characters. However, in the limited assignment data,
---   each actor only plays one character, although a character could be played by multiple actors (Rachel Dawes).
+--   each actor only plays one character, although a character (Rachel Dawes) could be played by multiple actors.
 -- - Since our goal is to build a movie database, for best practice, the "roles" table above was created to support the many to many relationship,
 --   even though it may not be necessary for the assignment data.
 
