@@ -127,8 +127,7 @@ CREATE TABLE studios (
 
 CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  first_name TEXT,
-  last_name TEXT
+  name TEXT
 );
 
 CREATE TABLE characters (
@@ -169,19 +168,19 @@ VALUES
 ;
 
 INSERT INTO 
-actors (first_name, last_name)
+actors (name)
 VALUES 
-("Christian", "Bale"),
-("Michael", "Caine"),
-("Liam", "Neeson"),
-("Katie", "Holmes"),
-("Gary", "Oldman"),
-("Heath", "Ledger"),
-("Aaron", "Eckhart"),
-("Maggie", "Gyllenhaal"),
-("Tom", "Hardy"),
-("Joseph", "Gordon-Levitt"),
-("Anne", "Hathaway")
+("Christian Bale"),
+("Michael Caine"),
+("Liam Neeson"),
+("Katie Holmes"),
+("Gary Oldman"),
+("Heath Ledger"),
+("Aaron Eckhart"),
+("Maggie Gyllenhaal"),
+("Tom Hardy"),
+("Joseph Gordon-Levitt"),
+("Anne Hathaway")
 ;
 
 INSERT INTO 
@@ -241,7 +240,9 @@ VALUES
 .print ""
 
 -- The SQL statement for the movies output
--- TODO!
+SELECT movies.title, movies.year, movies.MPAA, studios.name
+FROM movies INNER JOIN studios ON movies.studio_ID = studios.ID
+;
 
 -- Prints a header for the cast output
 .print ""
@@ -249,6 +250,11 @@ VALUES
 .print "========"
 .print ""
 
-
 -- The SQL statement for the cast output
--- TODO!
+SELECT movies.title, actors.name, characters.name
+FROM movies 
+INNER JOIN castings ON movies.ID = castings.movie_ID
+INNER JOIN roles ON castings.role_ID = roles.ID
+INNER JOIN actors ON roles.actor_ID = actors.ID
+INNER JOIN characters ON roles.character_ID = characters.ID
+;
